@@ -22,7 +22,9 @@ jobs:
           node-version: '16'  # Specify the version of Node.js you want to use
 
       - name: Install Dependencies
-        run: npm install
+        run: |
+          npm install newman newman-reporter-html --save-dev  # Install Newman and the HTML reporter
+          npm install  # Install other dependencies if you have a package.json
 
       - name: Run Postman Collection
         run: newman run my_collection.json -d products.json -r html,junit
