@@ -1,0 +1,40 @@
+name: Run API Tests
+
+on:
+  push:
+    branches:
+      - main  # Change this to the branch you want to trigger the tests on
+  pull_request:
+    branches:
+      - main  # Change this to the branch you want to trigger the tests on
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '16'  # Specify the version of Node.js you want to use
+
+      - name: Install Dependencies
+        run: npm install
+
+      - name: Run Postman Collection
+        run: newman run my_collection.json -d products.json -r html,junit
+
+      - name: Upload HTML Report
+        uses: actions/upload-artifact@v2
+        with:
+          name: api-test-report
+          path: newman.html  # Adjust the path if necessary
+
+      - name: Upload JUnit Report
+        uses: actions/upload-artifact@v2
+        with:
+          name: junit-results
+          path: junit-results.xml  # Adjust the path if necessary
