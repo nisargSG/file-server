@@ -31,7 +31,6 @@ jobs:
 
       - name: Run Postman Collection
         run: newman run my_collection.json -d products.json -r html --insecure
-
       - name: Upload HTML Report
         uses: actions/upload-artifact@v3  # Updated to v3
         with:
