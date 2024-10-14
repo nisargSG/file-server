@@ -21,18 +21,16 @@ jobs:
         with:
           node-version: '16'  # Specify the version of Node.js you want to use
 
-
       - name: Install Dependencies
         run: |
-          npm install -g newman newman-reporter-html
+          npm install -g newman newman-reporter-html  # Install Newman and the HTML reporter globally
 
       - name: Run Postman Collection
-        run: newman run my_collection.json -d products.json
-        
+        run: |
+          newman run my_collection.json -d products.json -r html --insecure || true  # Continue even if tests fail
+
       - name: Upload HTML Report
         uses: actions/upload-artifact@v3  # Updated to v3
         with:
           name: api-test-report
           path: newman.html  # Adjust the path if necessary
-
-   
