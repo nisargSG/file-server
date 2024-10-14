@@ -23,10 +23,10 @@ jobs:
 
       - name: Install Dependencies
         run: |
-          npm install -g newman newman-reporter-html newman-reporter-junit  # Install Newman and the HTML reporter globally
+          npm install -g newman newman-reporter-html
 
       - name: Run Postman Collection
-        run: newman run my_collection.json -d products.json -r html,junit
+        run: newman run my_collection.json -d products.json -r html
 
       - name: Upload HTML Report
         uses: actions/upload-artifact@v3  # Updated to v3
@@ -34,8 +34,4 @@ jobs:
           name: api-test-report
           path: newman.html  # Adjust the path if necessary
 
-      - name: Upload JUnit Report
-        uses: actions/upload-artifact@v3  # Updated to v3
-        with:
-          name: junit-results
-          path: junit-results.xml  # Adjust the path if necessary
+   
