@@ -29,8 +29,11 @@ jobs:
         run: |
           newman run my_collection.json -d products.json -r html --insecure || true  # Continue even if tests fail
 
+      - name: List
+        run: ls
+
       - name: Upload HTML Report
         uses: actions/upload-artifact@v3  # Updated to v3
         with:
           name: api-test-report
-          path: newman.html  # Adjust the path if necessary
+          path: newman/*.html  # Adjust the path if necessary
