@@ -23,9 +23,7 @@ jobs:
 
       - name: Install Dependencies
         run: |
-          npm install newman-reporter-html
-          npm install newman newman-reporter-html --save-dev  # Install Newman and the HTML reporter
-          npm install  # Install other dependencies if you have a package.json
+          npm install -g newman newman-reporter-html newman-reporter-junit  # Install Newman and the HTML reporter globally
 
       - name: Run Postman Collection
         run: newman run my_collection.json -d products.json -r html,junit
