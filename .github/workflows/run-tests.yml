@@ -21,6 +21,10 @@ jobs:
         with:
           node-version: '16'  # Specify the version of Node.js you want to use
 
+
+      - name: List files
+        run: ls -R 
+      
       - name: Install Dependencies
         run: |
           npm install -g newman newman-reporter-html
