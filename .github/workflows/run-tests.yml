@@ -22,15 +22,13 @@ jobs:
           node-version: '16'  # Specify the version of Node.js you want to use
 
 
-      - name: List files
-        run: ls -R 
-      
       - name: Install Dependencies
         run: |
           npm install -g newman newman-reporter-html
 
       - name: Run Postman Collection
-        run: newman run my_collection.json -d products.json -r html --insecure
+        run: newman run my_collection.json -d products.json
+        
       - name: Upload HTML Report
         uses: actions/upload-artifact@v3  # Updated to v3
         with:
