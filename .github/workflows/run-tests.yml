@@ -23,6 +23,7 @@ jobs:
 
       - name: Install Dependencies
         run: |
+          npm install newman-reporter-html
           npm install newman newman-reporter-html --save-dev  # Install Newman and the HTML reporter
           npm install  # Install other dependencies if you have a package.json
 
