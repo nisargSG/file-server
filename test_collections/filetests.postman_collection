@@ -11,6 +11,20 @@
 			"item": [
 				{
 					"name": "Login User",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const response = pm.response.json()\r",
+									"\r",
+									"pm.collectionVariables.set(\"token\",response.token)"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
 					"request": {
 						"method": "POST",
 						"header": [
@@ -49,12 +63,16 @@
 							"listen": "test",
 							"script": {
 								"exec": [
-									"pm.test(\"File Upload Test\",()=>{\r",
 									"\r",
+									"\r",
+									"pm.test(\"File Upload Test\",()=>{\r",
 									"   pm.response.to.have.status(200)\r",
 									"\r",
+									"   pm.collectionVariables.set(\"temp_file_name\",pm.response.json().fileDetails.storedName)\r",
+									"})\r",
 									"\r",
-									"})"
+									"\r",
+									""
 								],
 								"type": "text/javascript",
 								"packages": {}
@@ -75,7 +93,7 @@
 								{
 									"key": "file",
 									"type": "file",
-									"src": "/C:/Users/vm/Desktop/tops_logo.png"
+									"src": "/C:/Users/vm/Desktop/test.png"
 								}
 							]
 						},
@@ -140,11 +158,11 @@
 							"listen": "test",
 							"script": {
 								"exec": [
+									"\r",
 									"pm.test(\"File Retrive\",()=>{\r",
-									"\r",
 									"    pm.response.to.have.status(200)\r",
-									"\r",
-									"})"
+									"})\r",
+									""
 								],
 								"type": "text/javascript",
 								"packages": {}
@@ -160,7 +178,7 @@
 							}
 						],
 						"url": {
-							"raw": "http://localhost:3000/files/{{filename}}",
+							"raw": "http://localhost:3000/files/{{temp_file_name}}",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -168,7 +186,7 @@
 							"port": "3000",
 							"path": [
 								"files",
-								"{{filename}}"
+								"{{temp_file_name}}"
 							]
 						}
 					},
@@ -181,6 +199,9 @@
 							"listen": "test",
 							"script": {
 								"exec": [
+									"\r",
+									"pm.collectionVariables.unset(\"temp_file_name\")\r",
+									"\r",
 									"pm.test(\"File Deleted\",()=>{\r",
 									"\r",
 									"    pm.response.to.have.status(200)\r",
@@ -210,7 +231,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:3000/delete/{{filename}}",
+							"raw": "http://localhost:3000/delete/{{temp_file_name}}",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -218,7 +239,7 @@
 							"port": "3000",
 							"path": [
 								"delete",
-								"{{filename}}"
+								"{{temp_file_name}}"
 							]
 						}
 					},
@@ -285,7 +306,7 @@
 		"bearer": [
 			{
 				"key": "token",
-				"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im5pc2FyZ0BnbWFpbC5jb20iLCJpYXQiOjE3Mjg5Mzc4NDcsImV4cCI6MTcyODk0MTQ0N30.9qIDZnsquqh-A_q7QiY6zvmd2lNyo3SpaXg95kboMuM",
+				"value": "{{token}}",
 				"type": "string"
 			}
 		]
@@ -314,9 +335,12 @@
 	],
 	"variable": [
 		{
-			"key": "filename",
-			"value": "1728930271899.png",
-			"type": "string"
+			"key": "token",
+			"value": ""
+		},
+		{
+			"key": "temp_file_name",
+			"value": ""
 		}
 	]
 }

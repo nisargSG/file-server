@@ -27,10 +27,8 @@ jobs:
 
       - name: Run Postman Collection
         run: |
-          newman run my_collection.json -d products.json -r html --insecure || true  # Continue even if tests fail
+          newman run test_collections/filetests.postman_collection.json -r html --insecure || true  
 
-      - name: List
-        run: ls
 
       - name: Upload HTML Report
         uses: actions/upload-artifact@v3  # Updated to v3
