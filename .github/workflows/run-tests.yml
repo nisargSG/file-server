@@ -27,7 +27,7 @@ jobs:
 
       - name: Run Postman Collection
         run: |
-          newman run test_collections/filetests.postman_collection.json -r html --insecure || true  
+          newman run test_collections/filetests.postman_collection -r html --insecure || true  
 
 
       - name: Upload HTML Report
